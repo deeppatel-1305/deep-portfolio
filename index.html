@@ -2104,30 +2104,38 @@
 
           <!-- Message Form -->
           <div class="contact-card">
-            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Send a Message</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Connect directly regarding job opportunities or inquiries.</p>
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Direct Email to Deep</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 18px;">
+              HR &amp; Hiring Managers: Send an authentic inquiry directly to <strong style="color: #38bdf8;">deeppatel4423@gmail.com</strong>.
+            </p>
 
-            <form id="contact-form" action="https://formsubmit.co/deeppatel4423@gmail.com" method="POST" onsubmit="handleFormSubmit(event)">
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_subject" value="New Portfolio Inquiry - Deep Patel" />
+            <form id="contact-form" onsubmit="handleDirectEmailSubmit(event)">
               <div class="form-group">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" class="form-control interactive" placeholder="e.g. Hiring Manager / Team Lead" required />
+                <label for="name">Your Name &amp; Organization</label>
+                <input type="text" id="name" name="name" class="form-control interactive" placeholder="e.g. HR Manager / Deloitte Talent Team" required />
               </div>
               <div class="form-group">
-                <label for="email">Your Email</label>
-                <input type="email" id="email" name="email" class="form-control interactive" placeholder="name@organization.com" required />
+                <label for="subject">Subject / Target Role</label>
+                <input type="text" id="subject" name="subject" class="form-control interactive" placeholder="e.g. Data Analyst Role / Interview Discussion" required />
               </div>
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" name="message" class="form-control interactive" placeholder="Hi Deep, we have an exciting Data Analyst role..." required></textarea>
+                <textarea id="message" name="message" class="form-control interactive" placeholder="Hi Deep, I reviewed your NextMove Power BI dashboard and would like to discuss an opportunity..." rows="4" required></textarea>
               </div>
-              <button type="submit" class="btn-primary interactive" style="width: 100%; justify-content: center;">
-                Send Message &rarr;
+
+              <button type="submit" class="btn-primary interactive" style="width: 100%; justify-content: center; font-size: 0.95rem; padding: 13px 20px;">
+                ✉️ Send Direct Email to deeppatel4423@gmail.com &rarr;
               </button>
-              <div id="form-status" style="margin-top: 14px; font-size: 0.88rem; color: #22c55e; display: none; text-align: center;">
-                ✓ Message sent successfully!
+
+              <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; font-size: 0.82rem; color: var(--text-muted);">
+                <span>Quick Launch:</span>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=deeppatel4423@gmail.com&su=Data%20Analyst%20Role%20Discussion" target="_blank" rel="noopener noreferrer" class="interactive" style="color: #ea4335; text-decoration: none; font-weight: 600;">
+                  ● Gmail Web
+                </a>
+                <span style="opacity: 0.3;">•</span>
+                <a href="mailto:deeppatel4423@gmail.com?subject=Data%20Analyst%20Role%20Discussion" class="interactive" style="color: #38bdf8; text-decoration: none; font-weight: 600;">
+                  ● Outlook / Mail App
+                </a>
               </div>
             </form>
           </div>
@@ -2159,32 +2167,40 @@
     </div>
   </div>
 
-  <!-- Greeting / Message Success Modal -->
+  <!-- Greeting / Direct Email Confirmation Modal -->
   <div id="greeting-modal" class="cert-modal" onclick="closeGreetingModal(event)">
-    <div class="cert-modal-content" style="max-width: 520px; text-align: center; padding: clamp(24px, 5vw, 40px) clamp(20px, 4vw, 32px);">
+    <div class="cert-modal-content" style="max-width: 540px; text-align: center; padding: clamp(24px, 5vw, 36px) clamp(20px, 4vw, 32px);">
       <button class="cert-modal-close" onclick="closeGreetingModal(event)">&times;</button>
       
-      <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(34, 197, 94, 0.14); border: 1px solid rgba(34, 197, 94, 0.45); display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 18px; box-shadow: 0 0 24px rgba(34, 197, 94, 0.3);">
-        ✨
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.45); display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 16px; box-shadow: 0 0 24px rgba(56, 189, 248, 0.25);">
+        ✉️
       </div>
 
-      <h3 id="greeting-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.45rem; color: #fff; margin-bottom: 6px;">
-        Thank You!
+      <h3 id="greeting-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; color: #fff; margin-bottom: 6px;">
+        Direct Email to Deep Patel
       </h3>
-      <p style="color: #22c55e; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">
-        ✓ Message Transmitted Successfully
+      <p style="color: #38bdf8; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">
+        Target: deeppatel4423@gmail.com
       </p>
-      <p id="greeting-body" style="color: #c9c9d6; font-size: 0.92rem; line-height: 1.65; margin-bottom: 24px;">
-        Greetings! Thank you for getting in touch. I look forward to discussing data analytics opportunities with you.
+      <p id="greeting-body" style="color: #c9c9d6; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+        Your inquiry is formatted directly for Deep Patel. Choose your email client below to send it straight from your personal or corporate account:
       </p>
 
-      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-        <button class="btn-primary interactive" onclick="closeGreetingModal(event)" style="padding: 10px 22px; font-size: 0.85rem; cursor: pointer;">
-          Awesome, Thanks! &rarr;
-        </button>
-        <a id="greeting-mailto" href="#" class="btn-secondary interactive" style="padding: 10px 20px; font-size: 0.85rem; text-decoration: none;">
-          Direct Email ✉️
+      <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 22px; text-align: left; font-size: 0.85rem; color: #e2e8f0;">
+        <div style="font-weight: 700; color: #fff; margin-bottom: 6px;" id="modal-subject-preview">Subject: Data Analyst Role</div>
+        <div style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; max-height: 95px; overflow-y: auto; white-space: pre-line;" id="modal-body-preview"></div>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a id="modal-gmail-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary interactive" style="padding: 10px 18px; font-size: 0.85rem; background: #ea4335; border-color: #ea4335; text-decoration: none;">
+          Open in Gmail 🌐
         </a>
+        <a id="greeting-mailto" href="#" class="btn-primary interactive" style="padding: 10px 18px; font-size: 0.85rem; text-decoration: none;">
+          Open Mail App 💻
+        </a>
+        <button id="modal-copy-btn" class="btn-secondary interactive" onclick="copyDraftToClipboard(this)" style="padding: 10px 16px; font-size: 0.85rem; cursor: pointer;">
+          Copy Draft 📋
+        </button>
       </div>
     </div>
   </div>
@@ -2441,91 +2457,62 @@
       });
     }
 
-    async function handleFormSubmit(e) {
+    let currentDraftText = "";
+
+    function handleDirectEmailSubmit(e) {
       e.preventDefault();
 
-      const form = e.target;
       const nameInput = document.getElementById("name");
-      const emailInput = document.getElementById("email");
+      const subjectInput = document.getElementById("subject");
       const messageInput = document.getElementById("message");
-      const submitBtn = form.querySelector('button[type="submit"]');
 
-      const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "Valued Colleague";
-      const email = emailInput && emailInput.value.trim() ? emailInput.value.trim() : "";
+      const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "Hiring Manager";
+      const roleSubject = subjectInput && subjectInput.value.trim() ? subjectInput.value.trim() : "Data Analyst Role Opportunity";
       const message = messageInput && messageInput.value.trim() ? messageInput.value.trim() : "";
 
-      // Instant button transition
-      const originalBtnText = submitBtn.innerHTML;
-      submitBtn.innerHTML = "Sending Message... ⏳";
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = "0.75";
+      const finalSubject = `[Inquiry] ${roleSubject} — ${name}`;
+      const finalBody = `Hi Deep,\n\n${message}\n\nBest regards,\n${name}\n(Sent regarding Data Analytics opportunity)`;
 
-      // Setup personalized Greeting Modal elements
-      const greetingTitle = document.getElementById("greeting-title");
-      const greetingBody = document.getElementById("greeting-body");
-      const greetingMailto = document.getElementById("greeting-mailto");
+      currentDraftText = `To: deeppatel4423@gmail.com\nSubject: ${finalSubject}\n\n${finalBody}`;
 
-      // Pre-configure one-click email app backup
-      const mailtoSubject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-      const mailtoBody = encodeURIComponent(`Hi Deep,\n\n${message}\n\nBest regards,\n${name}\n${email}`);
-      greetingMailto.href = `mailto:deeppatel4423@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+      // Build web Gmail URL & desktop mailto URL directly targeting deeppatel4423@gmail.com
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=deeppatel4423@gmail.com&su=${encodeURIComponent(finalSubject)}&body=${encodeURIComponent(finalBody)}`;
+      const mailtoUrl = `mailto:deeppatel4423@gmail.com?subject=${encodeURIComponent(finalSubject)}&body=${encodeURIComponent(finalBody)}`;
 
-      try {
-        const response = await fetch("https://formsubmit.co/ajax/deeppatel4423@gmail.com", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            message: message,
-            _subject: `New Portfolio Inquiry from ${name}`,
-            _template: "table",
-            _captcha: "false"
-          })
-        });
+      // Update Modal content
+      const modalSubject = document.getElementById("modal-subject-preview");
+      const modalBody = document.getElementById("modal-body-preview");
+      const modalGmail = document.getElementById("modal-gmail-btn");
+      const modalMailto = document.getElementById("greeting-mailto");
 
-        const data = await response.json().catch(() => ({}));
+      if (modalSubject) modalSubject.textContent = `Subject: ${finalSubject}`;
+      if (modalBody) modalBody.textContent = finalBody;
+      if (modalGmail) modalGmail.href = gmailUrl;
+      if (modalMailto) modalMailto.href = mailtoUrl;
 
-        greetingTitle.textContent = `Thank You, ${name}! 🎉`;
+      // Show confirmation modal
+      document.getElementById("greeting-modal").classList.add("active");
 
-        if (data.success === "true" || data.success === true) {
-          greetingBody.innerHTML = `
-            Greetings! Your message has been sent directly to <strong style="color: #f59e0b;">Deep Patel</strong> at <strong style="color: #38bdf8;">deeppatel4423@gmail.com</strong>.<br><br>
-            Deep will review your note and reply back to <strong style="color: #22c55e;">${email}</strong> promptly within 24 hours.
-          `;
-          form.reset();
-        } else if (data.message && data.message.toLowerCase().includes("activation")) {
-          greetingBody.innerHTML = `
-            Your message has been initiated!<br><br>
-            <div style="text-align: left; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); padding: 12px 16px; border-radius: 10px; margin: 12px 0; font-size: 0.86rem; line-height: 1.55; color: #fde68a;">
-              ✉️ <strong>Notice for Deep:</strong> FormSubmit sent an activation email to <strong>deeppatel4423@gmail.com</strong>.<br>
-              Please open your Gmail and click <em>"Activate Form"</em>. Once clicked, all future submissions will automatically arrive in your Gmail inbox!
-            </div>
-          `;
-          form.reset();
-        } else {
-          greetingBody.innerHTML = `
-            Your message has been received! Deep will review your note and get back to you at <strong style="color: #38bdf8;">${email}</strong> shortly.
-          `;
-          form.reset();
-        }
-      } catch (err) {
-        console.warn("FormSubmit fetch:", err);
-        greetingTitle.textContent = `Thank You, ${name}! ✨`;
-        greetingBody.innerHTML = `
-          Thank you for reaching out! To ensure your message arrives immediately, you can also send it directly to <strong style="color: #38bdf8;">deeppatel4423@gmail.com</strong> using the button below.
-        `;
-      } finally {
-        submitBtn.innerHTML = originalBtnText;
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = "1";
-
-        // Show Greeting Modal Popup
-        document.getElementById("greeting-modal").classList.add("active");
+      // Auto-open in Gmail Web or mail client
+      const opened = window.open(gmailUrl, "_blank");
+      if (!opened) {
+        window.location.href = mailtoUrl;
       }
+    }
+
+    function copyDraftToClipboard(btn) {
+      if (!currentDraftText) return;
+      navigator.clipboard.writeText(currentDraftText).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = "Copied Draft! ✓";
+        btn.style.background = "#22c55e";
+        btn.style.color = "#fff";
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.style.background = "";
+          btn.style.color = "";
+        }, 2200);
+      });
     }
 
     function closeGreetingModal(e) {
