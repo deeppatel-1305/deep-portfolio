@@ -1023,6 +1023,161 @@
       color: #fff;
     }
 
+    /* Contact Logo Styles */
+    .contact-item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+    .contact-item:hover .contact-logo-icon {
+      transform: scale(1.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .contact-logo-linkedin {
+      background: rgba(10, 102, 194, 0.12);
+      border-color: rgba(10, 102, 194, 0.3);
+    }
+    .contact-logo-github {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .contact-logo-instagram {
+      background: rgba(225, 48, 108, 0.12);
+      border-color: rgba(225, 48, 108, 0.3);
+    }
+    .contact-logo-email {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .contact-logo-phone {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .contact-logo-location {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .contact-action-badge {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .contact-item:hover .contact-action-badge {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px rgba(255, 42, 42, 0.4);
+    }
+
+    /* Certificate Buttons & Modal */
+    .cert-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+    .cert-btn-deloitte {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+    .cert-btn-deloitte:hover {
+      background: #f59e0b;
+      color: #000;
+      border-color: #f59e0b;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+      transform: translateY(-2px);
+    }
+    .cert-btn-training {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+    }
+    .cert-btn-training:hover {
+      background: #38bdf8;
+      color: #000;
+      border-color: #38bdf8;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+    .cert-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .cert-modal.active {
+      display: flex;
+    }
+    .cert-modal-content {
+      background: #0e0e14;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 650px;
+      width: 100%;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .cert-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .cert-modal-close:hover {
+      color: #fff;
+    }
+
     .form-group {
       margin-bottom: 16px;
     }
@@ -1354,6 +1509,11 @@
               <p class="timeline-desc">
                 Completed practical data analytics and forensic technology tasks in a simulated enterprise environment, applying data analysis, anomaly detection, and business reporting to real-world corporate challenges.
               </p>
+              <button class="cert-btn cert-btn-deloitte interactive" onclick="openCertificate('deloitte')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                <span>View Deloitte Certificate</span>
+                <span>&rarr;</span>
+              </button>
             </div>
           </div>
 
@@ -1369,6 +1529,11 @@
               <p class="timeline-desc">
                 Intensive hands-on training in Power BI data ingestion, DAX formulas, relationship modeling, visual storytelling, and executive dashboard communication.
               </p>
+              <button class="cert-btn cert-btn-training interactive" onclick="openCertificate('training')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                <span>View Training Certificate</span>
+                <span>&rarr;</span>
+              </button>
             </div>
           </div>
 
@@ -1422,52 +1587,88 @@
             </p>
 
             <div class="contact-list">
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/deep-patel-7173b5299/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
+                <div class="contact-item-left">
+                  <div class="contact-logo-icon contact-logo-linkedin">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#0a66c2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
+                  </div>
+                  <div class="contact-info-block">
+                    <span>Professional Network</span>
+                    <strong>LinkedIn</strong>
+                  </div>
+                </div>
+                <span class="contact-action-badge">Connect &rarr;</span>
+              </a>
+
+              <!-- GitHub -->
+              <a href="https://github.com/deeppatel-1305" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
+                <div class="contact-item-left">
+                  <div class="contact-logo-icon contact-logo-github">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+                  </div>
+                  <div class="contact-info-block">
+                    <span>Code &amp; Repositories</span>
+                    <strong>GitHub</strong>
+                  </div>
+                </div>
+                <span class="contact-action-badge">Explore &rarr;</span>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://www.instagram.com/mr_deep_1_3/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
+                <div class="contact-item-left">
+                  <div class="contact-logo-icon contact-logo-instagram">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="url(#igGrad2)"><defs><linearGradient id="igGrad2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                  </div>
+                  <div class="contact-info-block">
+                    <span>Social Feed</span>
+                    <strong>Instagram</strong>
+                  </div>
+                </div>
+                <span class="contact-action-badge">Follow &rarr;</span>
+              </a>
+
+              <!-- Email -->
               <div class="contact-item">
-                <div class="contact-info-block">
-                  <span>Email Address</span>
-                  <strong class="highlight-gold">deeppatel4423@gmail.com</strong>
+                <div class="contact-item-left">
+                  <div class="contact-logo-icon contact-logo-email">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </div>
+                  <div class="contact-info-block">
+                    <span>Email Address</span>
+                    <strong class="highlight-gold">deeppatel4423@gmail.com</strong>
+                  </div>
                 </div>
                 <button class="copy-btn interactive" onclick="copyToClipboard('deeppatel4423@gmail.com', this)">Copy</button>
               </div>
 
+              <!-- Phone -->
               <div class="contact-item">
-                <div class="contact-info-block">
-                  <span>Phone Number</span>
-                  <strong class="highlight-cyan">704-677-2942</strong>
+                <div class="contact-item-left">
+                  <div class="contact-logo-icon contact-logo-phone">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </div>
+                  <div class="contact-info-block">
+                    <span>Phone Number</span>
+                    <strong class="highlight-cyan">704-677-2942</strong>
+                  </div>
                 </div>
                 <button class="copy-btn interactive" onclick="copyToClipboard('704-677-2942', this)">Copy</button>
               </div>
 
-              <a href="https://www.linkedin.com/in/deep-patel-7173b5299/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
-                <div class="contact-info-block">
-                  <span>LinkedIn Profile</span>
-                  <strong>linkedin.com/in/deep-patel-7173b5299</strong>
-                </div>
-                <span style="color: var(--accent);">&rarr;</span>
-              </a>
-
-              <a href="https://github.com/deeppatel-1305" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
-                <div class="contact-info-block">
-                  <span>GitHub Profile</span>
-                  <strong style="color: #38bdf8;">github.com/deeppatel-1305</strong>
-                </div>
-                <span style="color: var(--accent);">&rarr;</span>
-              </a>
-
-              <a href="https://www.instagram.com/mr_deep_1_3/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
-                <div class="contact-info-block">
-                  <span>Instagram Profile</span>
-                  <strong style="color: #f43f5e;">@mr_deep_1_3</strong>
-                </div>
-                <span style="color: var(--accent);">&rarr;</span>
-              </a>
-
+              <!-- Location -->
               <div class="contact-item">
-                <div class="contact-info-block">
-                  <span>Current Location</span>
-                  <strong>Pune, Maharashtra, India</strong>
+                <div class="contact-item-left">
+                  <div class="contact-logo-icon contact-logo-location">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                  <div class="contact-info-block">
+                    <span>Current Location</span>
+                    <strong>Pune, Maharashtra, India</strong>
+                  </div>
                 </div>
-                <span style="color: #22c55e;">● Available</span>
+                <span style="color: #22c55e; font-size: 0.8rem; font-weight: 600;">● Available</span>
               </div>
             </div>
           </div>
@@ -1511,6 +1712,20 @@
       <a href="https://www.instagram.com/mr_deep_1_3/" target="_blank" rel="noopener noreferrer" class="interactive" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Instagram (@mr_deep_1_3)</a>
     </p>
   </footer>
+
+  <!-- Certificate Modal Lightbox -->
+  <div id="cert-modal" class="cert-modal" onclick="closeCertModal(event)">
+    <div class="cert-modal-content">
+      <button class="cert-modal-close" onclick="closeCertModal(event)">&times;</button>
+      <div id="cert-modal-body"></div>
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 22px; border-top: 1px solid var(--border); padding-top: 18px;">
+        <button class="copy-btn interactive" onclick="closeCertModal(event)" style="padding: 10px 18px; font-size: 0.85rem;">Close</button>
+        <a id="cert-modal-external" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary interactive" style="padding: 10px 22px; font-size: 0.85rem; display: none;">
+          Open Original Credential &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script>
     /* ==========================================================
@@ -1770,6 +1985,70 @@
       setTimeout(() => {
         status.style.display = "none";
       }, 5000);
+    }
+
+    /* ==========================================================
+       5. Certificate Modal Handler
+       ========================================================== */
+    const certificateData = {
+      deloitte: {
+        title: "Deloitte — Data Analytics Job Simulation",
+        org: "Forage & Deloitte",
+        badge: "Industry Simulation • 2025",
+        desc: "Practical simulation of forensic technology, data cleaning, anomaly detection, and executive telemetry reporting at Deloitte.",
+        url: "" // Will be populated with the user's certificate URL
+      },
+      training: {
+        title: "Power BI Professional Training",
+        org: "Rise Technology, Anand",
+        badge: "Professional Training • Dec - Jan",
+        desc: "Hands-on Power BI certification in DAX expressions, data pipeline ingestion, schema modeling, and dashboard development.",
+        url: "" // Will be populated with the user's certificate URL
+      }
+    };
+
+    function openCertificate(type) {
+      const data = certificateData[type];
+      if (!data) return;
+
+      const modalBody = document.getElementById("cert-modal-body");
+      const extLink = document.getElementById("cert-modal-external");
+
+      if (data.url && data.url.trim() !== "") {
+        // If certificate link exists, open link directly or show embed
+        window.open(data.url, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      // If waiting for link, show attractive modal prompt
+      modalBody.innerHTML = `
+        <div style="text-align: center; padding: 24px 12px 12px;">
+          <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 16px;">
+            📜
+          </div>
+          <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; color: #fff; margin-bottom: 6px;">
+            ${data.title}
+          </h3>
+          <p style="color: var(--gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 14px;">
+            ${data.org} • ${data.badge}
+          </p>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; max-width: 480px; margin: 0 auto 20px;">
+            ${data.desc}
+          </p>
+          <div style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 999px; font-size: 0.8rem; color: var(--cyan);">
+            <span>●</span> Ready to connect link — Share your credential URL to activate direct viewing!
+          </div>
+        </div>
+      `;
+
+      extLink.style.display = "none";
+      document.getElementById("cert-modal").classList.add("active");
+    }
+
+    function closeCertModal(e) {
+      if (!e || e.target.id === "cert-modal" || e.target.classList.contains("cert-modal-close") || e.target.tagName === "BUTTON") {
+        document.getElementById("cert-modal").classList.remove("active");
+      }
     }
 
     window.__debug = {
