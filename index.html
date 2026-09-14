@@ -2064,6 +2064,36 @@
     </div>
   </div>
 
+  <!-- Greeting / Message Success Modal -->
+  <div id="greeting-modal" class="cert-modal" onclick="closeGreetingModal(event)">
+    <div class="cert-modal-content" style="max-width: 520px; text-align: center; padding: clamp(24px, 5vw, 40px) clamp(20px, 4vw, 32px);">
+      <button class="cert-modal-close" onclick="closeGreetingModal(event)">&times;</button>
+      
+      <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(34, 197, 94, 0.14); border: 1px solid rgba(34, 197, 94, 0.45); display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 18px; box-shadow: 0 0 24px rgba(34, 197, 94, 0.3);">
+        ✨
+      </div>
+
+      <h3 id="greeting-title" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.45rem; color: #fff; margin-bottom: 6px;">
+        Thank You!
+      </h3>
+      <p style="color: #22c55e; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">
+        ✓ Message Transmitted Successfully
+      </p>
+      <p id="greeting-body" style="color: #c9c9d6; font-size: 0.92rem; line-height: 1.65; margin-bottom: 24px;">
+        Greetings! Thank you for getting in touch. I look forward to discussing data analytics opportunities with you.
+      </p>
+
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-primary interactive" onclick="closeGreetingModal(event)" style="padding: 10px 22px; font-size: 0.85rem; cursor: pointer;">
+          Awesome, Thanks! &rarr;
+        </button>
+        <a id="greeting-mailto" href="#" class="btn-secondary interactive" style="padding: 10px 20px; font-size: 0.85rem; text-decoration: none;">
+          Direct Email ✉️
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script>
     /* ==========================================================
        1. DATA ANALYTICS LOADING EFFECT
@@ -2318,12 +2348,56 @@
 
     function handleFormSubmit(e) {
       e.preventDefault();
-      const status = document.getElementById("form-status");
-      status.style.display = "block";
-      e.target.reset();
+
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const messageInput = document.getElementById("message");
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+
+      const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "Valued Colleague";
+      const email = emailInput && emailInput.value.trim() ? emailInput.value.trim() : "";
+      const message = messageInput && messageInput.value.trim() ? messageInput.value.trim() : "";
+
+      // Instant button transition
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = "Sending... ⏳";
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.75";
+
       setTimeout(() => {
-        status.style.display = "none";
-      }, 5000);
+        // Reset button
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+
+        // Setup personalized Greeting Modal
+        const greetingTitle = document.getElementById("greeting-title");
+        const greetingBody = document.getElementById("greeting-body");
+        const greetingMailto = document.getElementById("greeting-mailto");
+
+        greetingTitle.textContent = `Thank You, ${name}! 🎉`;
+        greetingBody.innerHTML = `
+          Greetings! Your inquiry has been received with priority.<br><br>
+          I am excited to discuss data analytics opportunities with you. I will review your message and reply directly to <strong style="color: #38bdf8;">${email || 'your email'}</strong> within 24 hours.
+        `;
+
+        // Pre-configure one-click email app backup
+        const mailtoSubject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+        const mailtoBody = encodeURIComponent(`Hi Deep,\n\n${message}\n\nBest regards,\n${name}\n${email}`);
+        greetingMailto.href = `mailto:deeppatel4423@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+        // Show Greeting Modal Popup
+        document.getElementById("greeting-modal").classList.add("active");
+
+        // Reset form
+        e.target.reset();
+      }, 400);
+    }
+
+    function closeGreetingModal(e) {
+      if (!e || e.target.id === "greeting-modal" || e.target.classList.contains("cert-modal-close") || e.target.tagName === "BUTTON") {
+        document.getElementById("greeting-modal").classList.remove("active");
+      }
     }
 
     /* ==========================================================
