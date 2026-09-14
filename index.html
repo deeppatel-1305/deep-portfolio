@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Patel — Data Analyst &amp; Power BI Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #060608;
+      --bg-card: rgba(14, 14, 18, 0.62);
+      --bg-card-hover: rgba(22, 22, 28, 0.82);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(255, 51, 51, 0.45);
+      --accent: #ff2a2a;
+      --accent-glow: rgba(255, 42, 42, 0.35);
+      --gold: #f59e0b;
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --purple: #c084fc;
+      --text-main: #f5f5f8;
+      --text-muted: #a0a0ad;
+      --text-dim: #656573;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--bg);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ==========================================================
+       DATA ANALYTICS LOADING SCREEN
+       ========================================================== */
+    #analytics-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #060608;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s;
+      overflow: hidden;
+    }
+
+    #analytics-loader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.04);
+      pointer-events: none;
+    }
+
+    .loader-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 42, 42, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 42, 42, 0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+
+    .loader-box {
+      width: 90%;
+      max-width: 580px;
+      background: rgba(14, 14, 18, 0.88);
+      border: 1px solid rgba(255, 42, 42, 0.3);
+      border-radius: 20px;
+      padding: 40px 36px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 0 60px rgba(255, 42, 42, 0.16), 0 20px 40px rgba(0, 0, 0, 0.8);
+      position: relative;
+      z-index: 2;
+    }
+
+    .loader-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+
+    .loader-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pulse-indicator {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: blinkPulse 1.2s infinite;
+    }
+
+    @keyframes blinkPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+
+    .loader-status-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(255, 42, 42, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 42, 42, 0.2);
+    }
+
+    .loader-percent-display {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .loader-percent-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.6rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .loader-percent-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .loader-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .loader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff1a1a, #ff6b6b);
+      border-radius: 999px;
+      box-shadow: 0 0 16px rgba(255, 42, 42, 0.8);
+      transition: width 0.15s ease-out;
+    }
+
+    .loader-logs {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #7c7c8a;
+      line-height: 1.7;
+      min-height: 48px;
+    }
+
+    .loader-logs span.active {
+      color: #22c55e;
+    }
+
+    .loader-telemetry {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    /* ==========================================================
+       CUSTOM CURSOR
+       ========================================================== */
+    .custom-cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+    .custom-cursor-follower {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 42, 42, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+    }
+    body.hovering .custom-cursor {
+      width: 14px;
+      height: 14px;
+      background: #fff;
+    }
+    body.hovering .custom-cursor-follower {
+      width: 50px;
+      height: 50px;
+      border-color: var(--accent);
+      background: rgba(255, 42, 42, 0.08);
+    }
+
+    /* ==========================================================
+       BACKGROUND BLEND / MIXUP WITH PHOTO'S RED BACKLIGHT
+       ========================================================== */
+    #canvas-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      /* Dynamic gradient matching the photo's center red glow */
+      background: 
+        radial-gradient(circle at 72% 42%, rgba(255, 30, 30, 0.32) 0%, rgba(180, 10, 10, 0.18) 32%, rgba(120, 8, 8, 0.08) 55%, transparent 75%),
+        radial-gradient(circle at 25% 65%, rgba(255, 30, 30, 0.06) 0%, transparent 60%),
+        #060608;
+    }
+
+    /* Pulsing ambient aura behind subject */
+    .ambient-backlight-glow {
+      position: fixed;
+      top: 15%;
+      right: 14%;
+      width: 620px;
+      height: 620px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 35, 35, 0.28) 0%, rgba(200, 15, 15, 0.12) 45%, transparent 75%);
+      filter: blur(75px);
+      z-index: 0;
+      pointer-events: none;
+      animation: auraBreath 5.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes auraBreath {
+      0% { transform: scale(0.92); opacity: 0.75; }
+      100% { transform: scale(1.14); opacity: 1; }
+    }
+
+    /* The Canvas with screen blend mode so the photo's black background melts into website */
+    #scroll-canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      mix-blend-mode: screen; /* Seamlessly mixes photo's black background with page background */
+      opacity: 0.98;
+      filter: contrast(1.06) saturate(1.1);
+    }
+
+    /* Subtle edge vignette that preserves red light across the page */
+    .viewport-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(ellipse at 72% 45%, transparent 35%, rgba(6, 6, 8, 0.45) 70%, rgba(6, 6, 8, 0.88) 100%),
+        linear-gradient(180deg, rgba(6, 6, 8, 0.4) 0%, transparent 20%, transparent 80%, rgba(6, 6, 8, 0.85) 100%);
+    }
+
+    @media (max-width: 960px) {
+      .viewport-overlay {
+        background: rgba(6, 6, 8, 0.82);
+      }
+    }
+
+    /* ==========================================================
+       NAVIGATION BAR
+       ========================================================== */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: calc(100% - 40px);
+      max-width: 1200px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: rgba(14, 14, 18, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta {
+      background: #ffffff;
+      color: #050507;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 999px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 42, 42, 0.55);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================
+       CONTENT SECTIONS (LEFT ALIGNED TO BALANCE SUBJECT ON RIGHT)
+       ========================================================== */
+    main {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+
+    .section {
+      min-height: 100vh;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 130px 40px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .content-column {
+      max-width: 680px;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 42, 42, 0.12);
+      border: 1px solid rgba(255, 42, 42, 0.32);
+      border-radius: 999px;
+      color: #ff6b6b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      line-height: 1.12;
+      color: #fff;
+    }
+
+    /* HIGHLIGHT STYLING */
+    .highlight-red {
+      color: #ff5252;
+      text-shadow: 0 0 16px rgba(255, 42, 42, 0.4);
+    }
+    .highlight-gold {
+      color: var(--gold);
+      text-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+    }
+    .highlight-cyan {
+      color: var(--cyan);
+      text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+    .highlight-emerald {
+      color: var(--emerald);
+      text-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+    }
+    .highlight-purple {
+      color: var(--purple);
+      text-shadow: 0 0 16px rgba(192, 132, 252, 0.4);
+    }
+
+    /* SECTION 1: HERO */
+    #hero {
+      justify-content: flex-end;
+      padding-bottom: 100px;
+    }
+
+    .hero-pretitle {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-pretitle::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3.2rem, 7vw, 5.8rem);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+      color: #fff;
+    }
+
+    .hero-title span.outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      line-height: 1.65;
+      color: #c4c4cf;
+      margin-bottom: 32px;
+      max-width: 620px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(18, 18, 24, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(255, 42, 42, 0.42);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      background: #ff4747;
+      box-shadow: 0 14px 40px rgba(255, 42, 42, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      padding: 16px 30px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* SECTION 2: ABOUT */
+    .about-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: clamp(32px, 5vw, 56px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 50px;
+      right: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 42, 42, 0.7), transparent);
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #d1d1dc;
+      margin-bottom: 28px;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 16px;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+
+    .stat-item h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .stat-item p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* SECTION 3: SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(255, 42, 42, 0.15);
+    }
+
+    .skill-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+    }
+
+    .icon-gold { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--gold); }
+    .icon-cyan { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--cyan); }
+    .icon-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: var(--emerald); }
+    .icon-purple { background: rgba(192, 132, 252, 0.15); border: 1px solid rgba(192, 132, 252, 0.3); color: var(--purple); }
+
+    .skill-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .skill-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-pill {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      color: #e2e2ea;
+    }
+
+    .skill-pill.highlight-p {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+      font-weight: 700;
+    }
+    .skill-pill.highlight-c {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .skill-pill.highlight-e {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-weight: 700;
+    }
+    .skill-pill.highlight-r {
+      background: rgba(255, 42, 42, 0.12);
+      border-color: rgba(255, 42, 42, 0.35);
+      color: #ff6b6b;
+      font-weight: 700;
+    }
+
+    /* SECTION 4: PROJECT */
+    .project-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(28px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: clamp(32px, 5vw, 56px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(255, 42, 42, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .project-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tool-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 8px;
+    }
+    .tool-pbi { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; }
+    .tool-dax { background: rgba(255, 42, 42, 0.15); border: 1px solid rgba(255, 42, 42, 0.4); color: #ff6b6b; }
+    .tool-pq { background: rgba(192, 132, 252, 0.15); border: 1px solid rgba(192, 132, 252, 0.4); color: #d8b4fe; }
+
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 3.4vw, 2.6rem);
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .project-desc {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: #c4c4cf;
+      margin-bottom: 28px;
+    }
+
+    .kpi-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .kpi-box strong {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .kpi-box span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .project-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .project-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #dedee8;
+    }
+
+    .bullet-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 42, 42, 0.15);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* SECTION 5: CAREER & EDUCATION */
+    .timeline {
+      position: relative;
+      margin-top: 32px;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 7px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, rgba(255, 42, 42, 0.1) 100%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .timeline-node {
+      position: absolute;
+      left: -28px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background: #060608;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      transition: all 0.25s ease;
+    }
+
+    .timeline-card:hover {
+      border-color: var(--border-accent);
+      transform: translateX(4px);
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .timeline-badge-deloitte {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .timeline-badge-edu {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .timeline-org {
+      font-size: 0.92rem;
+      color: #e0e0ea;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .timeline-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* SECTION 6: CONTACT */
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 30px;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.25s ease;
+    }
+
+    .contact-item:hover {
+      border-color: var(--border-accent);
+      background: rgba(255, 42, 42, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .contact-info-block span {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    .contact-info-block strong {
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.92rem;
+      transition: border-color 0.25s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 14px rgba(255, 42, 42, 0.25);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 95px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 32px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      position: relative;
+      z-index: 10;
+      background: rgba(6, 6, 8, 0.92);
+    }
+
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      header { top: 14px; width: calc(100% - 28px); }
+      .section { padding: 110px 20px 70px; }
+      .hero-title { font-size: 3rem; }
+      .custom-cursor, .custom-cursor-follower { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DATA ANALYTICS LOADING SCREEN -->
+  <div id="analytics-loader">
+    <div class="loader-grid"></div>
+    <div class="loader-box">
+      <div class="loader-header">
+        <div class="loader-brand">
+          <div class="pulse-indicator"></div>
+          DEEP PATEL // ANALYTICS
+        </div>
+        <div class="loader-status-tag" id="loader-tag">ETL: PIPELINE ACTIVE</div>
+      </div>
+
+      <div class="loader-percent-display">
+        <div class="loader-percent-number" id="loader-percent">0%</div>
+        <div class="loader-percent-label">Compiling Telemetry</div>
+      </div>
+
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loader-progress-bar"></div>
+      </div>
+
+      <div class="loader-logs" id="loader-logs">
+        &gt; Initializing Power BI DAX engine...
+      </div>
+
+      <div class="loader-telemetry">
+        <span>STACK: Power BI • SQL • Python</span>
+        <span id="frames-loaded-text">0 / 120 FRAMES</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Magnetic Cursor -->
+  <div class="custom-cursor" id="cursor-dot"></div>
+  <div class="custom-cursor-follower" id="cursor-follower"></div>
+
+  <!-- Ambient Dynamic Red Backlight Glow -->
+  <div class="ambient-backlight-glow"></div>
+
+  <!-- Ambient Viewport Gradient Scrim -->
+  <div class="viewport-overlay"></div>
+
+  <!-- Pinned Scroll-Driven Subject Canvas (Face & Pose Visibly Framed, Screen Blend Mode) -->
+  <div id="canvas-wrapper">
+    <canvas id="scroll-canvas"></canvas>
+  </div>
+
+  <!-- Floating Navigation -->
+  <header>
+    <nav>
+      <a href="#hero" class="brand interactive">
+        <span class="brand-dot"></span>
+        DEEP PATEL
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about" class="interactive">About</a></li>
+        <li><a href="#skills" class="interactive">Skills</a></li>
+        <li><a href="#project" class="interactive">Project</a></li>
+        <li><a href="#career" class="interactive">Education &amp; Experience</a></li>
+        <li><a href="#contact" class="interactive">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta interactive">Get In Touch &rarr;</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SECTION 1: HERO -->
+    <section class="section" id="hero">
+      <div class="content-column">
+        <div class="hero-pretitle">Data Analyst &amp; Power BI Developer</div>
+        <h1 class="hero-title">
+          DEEP PATEL<br />
+          <span class="outline">PORTFOLIO</span>
+        </h1>
+        <p class="hero-subtitle">
+          Transforming complex multi-source data into clear, <strong class="highlight-red">actionable business intelligence</strong> through <strong class="highlight-gold">Power BI</strong>, <strong class="highlight-cyan">SQL</strong>, and <strong class="highlight-emerald">Python</strong>.
+        </p>
+
+        <div class="hero-badges">
+          <div class="status-pill">
+            <span style="color:#22c55e;">●</span> <strong>Target Roles:</strong> Data Analyst • BI Analyst • Business Analyst • MIS Analyst
+          </div>
+          <div class="status-pill">
+            📍 <strong>Location:</strong> Pune, India
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#project" class="btn-primary interactive">Explore NextMove Project &rarr;</a>
+          <a href="#skills" class="btn-secondary interactive">View Technical Arsenal</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ABOUT -->
+    <section class="section" id="about">
+      <div class="content-column">
+        <div class="about-card">
+          <div class="tag-badge">// 01. Professional Summary</div>
+          <h2 class="section-title">
+            Turning Complex Data Into <span class="highlight-red">Decisive Business Growth.</span>
+          </h2>
+          <p class="about-text">
+            Data Analyst with hands-on experience in <strong class="highlight-gold">Power BI</strong>, <strong class="highlight-cyan">SQL &amp; MySQL</strong>, <strong class="highlight-emerald">Python</strong>, and <strong class="highlight-purple">Excel (Advanced)</strong>, dedicated to applying strong analytical and data visualization skills to drive executive decision-making.
+          </p>
+          <p class="about-text">
+            Specialized in <strong>data cleaning</strong>, <strong>exploratory data analysis (EDA)</strong>, <strong class="highlight-gold">custom DAX measures</strong>, and <strong class="highlight-purple">Power Query ETL modeling</strong>. Successfully built an end-to-end e-commerce analytics dashboard and completed the <strong class="highlight-gold">Deloitte Data Analytics Job Simulation</strong>.
+          </p>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <h3 class="highlight-gold">100%</h3>
+              <p>Actionable Insight Focus</p>
+            </div>
+            <div class="stat-item">
+              <h3 class="highlight-cyan">Deloitte</h3>
+              <p>Simulation Certified</p>
+            </div>
+            <div class="stat-item">
+              <h3 class="highlight-emerald">End-to-End</h3>
+              <p>E-Commerce Analytics</p>
+            </div>
+            <div class="stat-item">
+              <h3 class="highlight-red">Pune, IN</h3>
+              <p>Open for Roles</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SKILLS -->
+    <section class="section" id="skills">
+      <div class="content-column">
+        <div class="tag-badge">// 02. Core Competencies &amp; Skills</div>
+        <h2 class="section-title">
+          Analytical Arsenal &amp; <span class="highlight-cyan">Technical Stack</span>
+        </h2>
+
+        <div class="skills-grid">
+          <!-- BI & Visualization -->
+          <div class="skill-card interactive">
+            <div class="skill-card-icon icon-gold">📊</div>
+            <h3>BI &amp; Visualization</h3>
+            <p>End-to-end dashboard architecture, custom DAX metrics, and automated Power Query ETL pipelines.</p>
+            <div class="skill-pills">
+              <span class="skill-pill highlight-p">Microsoft Power BI</span>
+              <span class="skill-pill highlight-p">DAX Measures</span>
+              <span class="skill-pill highlight-p">Power Query (ETL)</span>
+              <span class="skill-pill">Power BI Service</span>
+              <span class="skill-pill">Dashboard Development</span>
+              <span class="skill-pill">Visual Storytelling</span>
+            </div>
+          </div>
+
+          <!-- Databases & SQL -->
+          <div class="skill-card interactive">
+            <div class="skill-card-icon icon-cyan">🗄️</div>
+            <h3>Databases &amp; SQL</h3>
+            <p>Relational database queries, schema modeling, aggregations, and performance analytics.</p>
+            <div class="skill-pills">
+              <span class="skill-pill highlight-c">SQL &amp; MySQL</span>
+              <span class="skill-pill highlight-c">Complex JOINs</span>
+              <span class="skill-pill highlight-c">Subqueries</span>
+              <span class="skill-pill">GROUP BY &amp; HAVING</span>
+              <span class="skill-pill">Aggregate Functions</span>
+              <span class="skill-pill">Data Modeling</span>
+            </div>
+          </div>
+
+          <!-- Programming & EDA -->
+          <div class="skill-card interactive">
+            <div class="skill-card-icon icon-emerald">🐍</div>
+            <h3>Programming &amp; EDA</h3>
+            <p>Programmatic data munging, exploratory statistical analysis, and trend forecasting.</p>
+            <div class="skill-pills">
+              <span class="skill-pill highlight-e">Python</span>
+              <span class="skill-pill highlight-e">Pandas</span>
+              <span class="skill-pill highlight-e">NumPy</span>
+              <span class="skill-pill">Exploratory Data Analysis (EDA)</span>
+              <span class="skill-pill">Data Cleaning</span>
+              <span class="skill-pill">Trend Analysis</span>
+            </div>
+          </div>
+
+          <!-- Tools & Business -->
+          <div class="skill-card interactive">
+            <div class="skill-card-icon icon-purple">📈</div>
+            <h3>Business &amp; Excel</h3>
+            <p>KPI formulation, advanced spreadsheet modeling, and executive-level narrative communication.</p>
+            <div class="skill-pills">
+              <span class="skill-pill highlight-r">Microsoft Excel (Advanced)</span>
+              <span class="skill-pill">Power Query Editor</span>
+              <span class="skill-pill">KPI Analysis &amp; Reporting</span>
+              <span class="skill-pill">Business Insights</span>
+              <span class="skill-pill">Executive Presentations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: PROJECT -->
+    <section class="section" id="project">
+      <div class="content-column">
+        <div class="tag-badge">// 03. Featured Project</div>
+        <div class="project-card">
+          <div class="project-tools">
+            <span class="tool-tag tool-pbi">Power BI</span>
+            <span class="tool-tag tool-dax">DAX Measures</span>
+            <span class="tool-tag tool-pq">Power Query</span>
+            <span class="tool-tag" style="background:rgba(255,255,255,0.06); border:1px solid var(--border); color:#fff;">E-commerce Analytics</span>
+          </div>
+
+          <h3 class="project-title">
+            NextMove — <span class="highlight-red">E-commerce Analytics Dashboard</span>
+          </h3>
+
+          <p class="project-desc">
+            An interactive, full-lifecycle Power BI dashboard developed to analyze e-commerce sales performance, revenue velocity, and product-level unit metrics—empowering stakeholders with data-driven decision speed.
+          </p>
+
+          <div class="kpi-ribbon">
+            <div class="kpi-box">
+              <strong class="highlight-gold">+28.4%</strong>
+              <span>Revenue Growth Tracked</span>
+            </div>
+            <div class="kpi-box">
+              <strong class="highlight-cyan">25+ DAX</strong>
+              <span>Custom Key Metrics</span>
+            </div>
+            <div class="kpi-box">
+              <strong class="highlight-emerald">100% Automated</strong>
+              <span>Power Query ETL Pipeline</span>
+            </div>
+          </div>
+
+          <ul class="project-bullets">
+            <li class="project-bullet">
+              <div class="bullet-icon">✓</div>
+              <div><strong class="highlight-gold">Multi-Source ETL Modeling:</strong> Utilized Power Query to extract, clean, transform, and model raw transaction records into a structured star schema.</div>
+            </li>
+            <li class="project-bullet">
+              <div class="bullet-icon">✓</div>
+              <div><strong class="highlight-red">Custom DAX Calculations:</strong> Built custom measures calculating dynamic revenue velocities, profit margins, sales trajectories, and repeat customer retention.</div>
+            </li>
+            <li class="project-bullet">
+              <div class="bullet-icon">✓</div>
+              <div><strong class="highlight-cyan">Interactive Drill-Through Views:</strong> Designed visual reports and drill-through hierarchies enabling granular breakdowns by region, category, and sales channel.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: CAREER & EDUCATION -->
+    <section class="section" id="career">
+      <div class="content-column">
+        <div class="tag-badge">// 04. Experience, Certifications &amp; Education</div>
+        <h2 class="section-title">
+          Journey, <span class="highlight-gold">Certifications</span> &amp; Academic Foundation
+        </h2>
+
+        <div class="timeline">
+          <!-- Deloitte -->
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card interactive">
+              <div class="timeline-meta">
+                <span class="timeline-title">Deloitte — Data Analytics Job Simulation</span>
+                <span class="timeline-badge-deloitte">Forage | 2025</span>
+              </div>
+              <div class="timeline-org">Practical Industry Simulation</div>
+              <p class="timeline-desc">
+                Completed practical data analytics and forensic technology tasks in a simulated enterprise environment, applying data analysis, anomaly detection, and business reporting to real-world corporate challenges.
+              </p>
+            </div>
+          </div>
+
+          <!-- Rise Technology -->
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card interactive">
+              <div class="timeline-meta">
+                <span class="timeline-title">Power BI Professional Training</span>
+                <span class="timeline-badge-deloitte">Dec – Jan</span>
+              </div>
+              <div class="timeline-org">Rise Technology, Anand</div>
+              <p class="timeline-desc">
+                Intensive hands-on training in Power BI data ingestion, DAX formulas, relationship modeling, visual storytelling, and executive dashboard communication.
+              </p>
+            </div>
+          </div>
+
+          <!-- MCA -->
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card interactive">
+              <div class="timeline-meta">
+                <span class="timeline-title">Master of Computer Applications (MCA)</span>
+                <span class="timeline-badge-edu">2026 – 2028</span>
+              </div>
+              <div class="timeline-org">MIT World Peace University (MIT-WPU), Pune</div>
+              <p class="timeline-desc">
+                Advanced studies in enterprise software architecture, database management systems (DBMS), computational intelligence, and statistical data science.
+              </p>
+            </div>
+          </div>
+
+          <!-- BCA -->
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card interactive">
+              <div class="timeline-meta">
+                <span class="timeline-title">Bachelor of Computer Applications (BCA)</span>
+                <span class="timeline-badge-edu">Completed</span>
+              </div>
+              <div class="timeline-org">Natubhai V. Patel College of Pure &amp; Applied Sciences, CVM University</div>
+              <p class="timeline-desc">
+                Rigorous grounding in SQL database architecture, data structures, algorithms, and core programming paradigms.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: CONTACT -->
+    <section class="section" id="contact">
+      <div class="content-column">
+        <div class="tag-badge">// 05. Get In Touch</div>
+        <h2 class="section-title">
+          Let's Discuss <span class="highlight-red">Analytics Opportunities.</span>
+        </h2>
+
+        <div class="contact-container">
+          <!-- Direct Channels -->
+          <div class="contact-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Direct Channels</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+              Ready to contribute to data-driven teams as a <strong style="color:#fff;">Data Analyst, BI Analyst, or MIS Analyst</strong>.
+            </p>
+
+            <div class="contact-list">
+              <div class="contact-item">
+                <div class="contact-info-block">
+                  <span>Email Address</span>
+                  <strong class="highlight-gold">deeppatel4423@gmail.com</strong>
+                </div>
+                <button class="copy-btn interactive" onclick="copyToClipboard('deeppatel4423@gmail.com', this)">Copy</button>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-info-block">
+                  <span>Phone Number</span>
+                  <strong class="highlight-cyan">704-677-2942</strong>
+                </div>
+                <button class="copy-btn interactive" onclick="copyToClipboard('704-677-2942', this)">Copy</button>
+              </div>
+
+              <a href="https://www.linkedin.com/in/deep-patel-7173b5299/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
+                <div class="contact-info-block">
+                  <span>LinkedIn Profile</span>
+                  <strong>linkedin.com/in/deep-patel-7173b5299</strong>
+                </div>
+                <span style="color: var(--accent);">&rarr;</span>
+              </a>
+
+              <div class="contact-item">
+                <div class="contact-info-block">
+                  <span>Current Location</span>
+                  <strong>Pune, Maharashtra, India</strong>
+                </div>
+                <span style="color: #22c55e;">● Available</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message Form -->
+          <div class="contact-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Send a Message</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Connect directly regarding job opportunities or inquiries.</p>
+
+            <form id="contact-form" onsubmit="handleFormSubmit(event)">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" class="form-control interactive" placeholder="e.g. Hiring Manager / Team Lead" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" class="form-control interactive" placeholder="name@organization.com" required />
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" class="form-control interactive" placeholder="Hi Deep, we have an exciting Data Analyst role..." required></textarea>
+              </div>
+              <button type="submit" class="btn-primary interactive" style="width: 100%; justify-content: center;">
+                Send Message &rarr;
+              </button>
+              <div id="form-status" style="margin-top: 14px; font-size: 0.88rem; color: #22c55e; display: none; text-align: center;">
+                ✓ Message sent successfully!
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Deep Patel • Data Analyst &amp; Power BI Developer Portfolio</p>
+  </footer>
+
+  <script>
+    /* ==========================================================
+       1. DATA ANALYTICS LOADING EFFECT
+       ========================================================== */
+    const loader = document.getElementById("analytics-loader");
+    const loaderPercent = document.getElementById("loader-percent");
+    const loaderProgressBar = document.getElementById("loader-progress-bar");
+    const loaderLogs = document.getElementById("loader-logs");
+    const framesLoadedText = document.getElementById("frames-loaded-text");
+
+    const telemetryLogs = [
+      "&gt; Initializing Power BI DAX engine...",
+      "&gt; Ingesting multi-source e-commerce records...",
+      "&gt; Formulating SQL queries &amp; relational schemas...",
+      "&gt; Compiling interactive KPI visualizations...",
+      "&gt; Calibrating 120-frame subject rotation...",
+      "&gt; Pipeline status: <span class='active'>OPTIMAL [100%]</span>"
+    ];
+
+    let currentLoadPercent = 0;
+    let targetLoadPercent = 0;
+
+    function updateLoaderVisuals(pct) {
+      loaderPercent.textContent = Math.round(pct) + "%";
+      loaderProgressBar.style.width = pct + "%";
+      
+      const logIdx = Math.min(telemetryLogs.length - 1, Math.floor((pct / 100) * telemetryLogs.length));
+      loaderLogs.innerHTML = telemetryLogs[logIdx];
+    }
+
+    const loaderInterval = setInterval(() => {
+      if (currentLoadPercent < targetLoadPercent) {
+        currentLoadPercent += (targetLoadPercent - currentLoadPercent) * 0.2 + 0.5;
+        if (currentLoadPercent > targetLoadPercent) currentLoadPercent = targetLoadPercent;
+        updateLoaderVisuals(currentLoadPercent);
+      }
+
+      if (currentLoadPercent >= 100) {
+        clearInterval(loaderInterval);
+        setTimeout(() => {
+          loader.classList.add("loaded");
+        }, 350);
+      }
+    }, 30);
+
+    /* ==========================================================
+       2. Custom Magnetic Cursor
+       ========================================================== */
+    const cursorDot = document.getElementById("cursor-dot");
+    const cursorFollower = document.getElementById("cursor-follower");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let followerX = mouseX;
+    let followerY = mouseY;
+
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + "px";
+      cursorDot.style.top = mouseY + "px";
+    });
+
+    function animateCursor() {
+      followerX += (mouseX - followerX) * 0.18;
+      followerY += (mouseY - followerY) * 0.18;
+      cursorFollower.style.left = followerX + "px";
+      cursorFollower.style.top = followerY + "px";
+      requestAnimationFrame(animateCursor);
+    }
+    requestAnimationFrame(animateCursor);
+
+    document.querySelectorAll(".interactive").forEach((el) => {
+      el.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
+      el.addEventListener("mouseleave", () => document.body.classList.remove("hovering"));
+    });
+
+    /* ==========================================================
+       3. Scroll-Driven Subject Canvas (Face & Pose Visibly Framed)
+       ========================================================== */
+    const canvas = document.getElementById("scroll-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // 120 unique monotonic rotation frames
+    const duplicateIndices = new Set([
+      3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58, 63, 68, 73,
+      78, 83, 88, 93, 98, 103, 108, 113, 118, 123, 128, 133, 138, 143, 148
+    ]);
+
+    const frameNumbers = [];
+    for (let i = 1; i <= 150; i++) {
+      if (!duplicateIndices.has(i)) {
+        frameNumbers.push(i);
+      }
+    }
+    const totalFrames = frameNumbers.length;
+
+    let targetProgress = 0;
+    let currentProgress = 0;
+    const ease = 0.085;
+
+    const images = new Array(totalFrames);
+    let loadedCount = 0;
+
+    function getFrameSrc(frameNum) {
+      return "ezgif-frame-" + String(frameNum).padStart(3, "0") + ".png";
+    }
+
+    function isImageReady(img) {
+      return img && img.complete && img.naturalWidth > 0;
+    }
+
+    function getNearestLoadedFrame(idx) {
+      if (isImageReady(images[idx])) return images[idx];
+      for (let offset = 1; offset < totalFrames; offset++) {
+        const left = idx - offset;
+        if (left >= 0 && isImageReady(images[left])) return images[left];
+        const right = idx + offset;
+        if (right < totalFrames && isImageReady(images[right])) return images[right];
+      }
+      return null;
+    }
+
+    // Preload frames & sync with analytics loading screen
+    for (let i = 0; i < totalFrames; i++) {
+      const img = new Image();
+      const idx = i;
+      img.onload = function () {
+        images[idx] = img;
+        loadedCount++;
+        targetLoadPercent = Math.min(100, Math.round((loadedCount / totalFrames) * 100));
+        framesLoadedText.textContent = loadedCount + " / " + totalFrames + " FRAMES";
+        if (idx === 0 && currentProgress === 0) {
+          render(0);
+        }
+      };
+      img.src = getFrameSrc(frameNumbers[i]);
+    }
+
+    // Canvas sizing with Retina support
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      render(currentProgress * (totalFrames - 1));
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function updateScrollProgress() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll > 0) {
+        targetProgress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+      }
+    }
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    updateScrollProgress();
+
+    /* 
+       Drawing function ensuring:
+       1. The face, eyes, and sunglasses are 100% visible on screen without cropping
+       2. On desktop (width > 960px), positioned on the right side of the screen
+       3. On mobile, cleanly centered with ambient backlight
+    */
+    function drawImage(img, alpha, scaleMultiplier) {
+      if (!isImageReady(img)) return;
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+
+      // Fit height so the full head, shoulders, and suit are visible
+      const fitScale = (ch * 0.96) / ih;
+      const scale = fitScale * scaleMultiplier;
+      const dw = iw * scale;
+      const dh = ih * scale;
+
+      let dx = 0;
+      const dy = (ch - dh) / 2;
+
+      if (window.innerWidth > 960) {
+        // Position subject on the right side of desktop screen
+        dx = (cw * 0.72) - (dw / 2);
+      } else {
+        // Centered on mobile & tablet
+        dx = (cw - dw) / 2;
+      }
+
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    function render(exactIndex) {
+      const cw = canvas.width;
+      const ch = canvas.height;
+      ctx.clearRect(0, 0, cw, ch);
+
+      const clampedIndex = Math.max(0, Math.min(totalFrames - 1, exactIndex));
+      const baseIndex = Math.floor(clampedIndex);
+      const nextIndex = Math.min(totalFrames - 1, baseIndex + 1);
+      const blend = clampedIndex - baseIndex;
+
+      // Subtle dynamic push-in zoom (1.0x to 1.04x) on scroll
+      const progress = clampedIndex / (totalFrames - 1);
+      const scaleMultiplier = 1.0 + progress * 0.04;
+
+      const baseImg = getNearestLoadedFrame(baseIndex);
+      const nextImg = getNearestLoadedFrame(nextIndex);
+
+      if (baseImg) {
+        drawImage(baseImg, 1.0, scaleMultiplier);
+      }
+      if (blend > 0.01 && nextImg && nextImg !== baseImg) {
+        drawImage(nextImg, blend, scaleMultiplier);
+      }
+    }
+
+    function tick() {
+      const delta = targetProgress - currentProgress;
+      if (Math.abs(delta) > 0.00005) {
+        currentProgress += delta * ease;
+      } else {
+        currentProgress = targetProgress;
+      }
+
+      const exactIndex = currentProgress * (totalFrames - 1);
+      render(exactIndex);
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    /* ==========================================================
+       4. Utility Functions
+       ========================================================== */
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = "Copied!";
+        btn.style.background = "#22c55e";
+        btn.style.color = "#fff";
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = "";
+          btn.style.color = "";
+        }, 2000);
+      });
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const status = document.getElementById("form-status");
+      status.style.display = "block";
+      e.target.reset();
+      setTimeout(() => {
+        status.style.display = "none";
+      }, 5000);
+    }
+
+    window.__debug = {
+      getState: () => ({
+        targetProgress,
+        currentProgress,
+        frameIndex: Math.round(currentProgress * (totalFrames - 1)),
+        loadedCount: images.filter(img => img && img.complete).length,
+        totalFrames
+      })
+    };
+  </script>
+</body>
+</html>
