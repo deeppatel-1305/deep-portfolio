@@ -241,6 +241,11 @@
       border-color: var(--accent);
       background: rgba(255, 42, 42, 0.08);
     }
+    @media (hover: none) and (pointer: coarse) {
+      .custom-cursor, .custom-cursor-follower {
+        display: none !important;
+      }
+    }
 
     /* ==========================================================
        BACKGROUND BLEND / MIXUP WITH PHOTO'S RED BACKLIGHT
@@ -955,7 +960,7 @@
     /* SECTION 6: CONTACT */
     .contact-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
       gap: 28px;
       margin-top: 30px;
     }
@@ -963,29 +968,164 @@
     .contact-card {
       background: var(--bg-card);
       backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 36px;
+      padding: clamp(20px, 4vw, 36px);
+      min-width: 0;
+      overflow: hidden;
     }
 
+    /* Social Cards Grid (LinkedIn, GitHub, Instagram) */
+    .social-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .social-brand-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .social-brand-card .social-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+    }
+
+    .social-brand-card .social-card-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #f0f0f5;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .social-brand-card .social-card-arrow {
+      font-size: 0.75rem;
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Individual Brand Hover Effects & Glow */
+    .social-brand-card.card-linkedin:hover {
+      background: rgba(10, 102, 194, 0.14);
+      border-color: rgba(10, 102, 194, 0.6);
+      box-shadow: 0 10px 28px rgba(10, 102, 194, 0.35);
+      transform: translateY(-4px);
+    }
+    .social-brand-card.card-linkedin:hover .social-card-icon {
+      transform: scale(1.12);
+      background: rgba(10, 102, 194, 0.22);
+      border-color: #0a66c2;
+      box-shadow: 0 0 16px rgba(10, 102, 194, 0.5);
+    }
+    .social-brand-card.card-linkedin:hover .social-card-label {
+      color: #38bdf8;
+    }
+    .social-brand-card.card-linkedin:hover .social-card-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+      color: #38bdf8;
+    }
+
+    .social-brand-card.card-github:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 10px 28px rgba(255, 255, 255, 0.18);
+      transform: translateY(-4px);
+    }
+    .social-brand-card.card-github:hover .social-card-icon {
+      transform: scale(1.12);
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+    }
+    .social-brand-card.card-github:hover .social-card-label {
+      color: #ffffff;
+    }
+    .social-brand-card.card-github:hover .social-card-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+      color: #ffffff;
+    }
+
+    .social-brand-card.card-instagram:hover {
+      background: rgba(225, 48, 108, 0.14);
+      border-color: rgba(225, 48, 108, 0.6);
+      box-shadow: 0 10px 28px rgba(225, 48, 108, 0.35);
+      transform: translateY(-4px);
+    }
+    .social-brand-card.card-instagram:hover .social-card-icon {
+      transform: scale(1.12);
+      background: rgba(225, 48, 108, 0.22);
+      border-color: #e1306c;
+      box-shadow: 0 0 16px rgba(225, 48, 108, 0.5);
+    }
+    .social-brand-card.card-instagram:hover .social-card-label {
+      color: #f43f5e;
+    }
+    .social-brand-card.card-instagram:hover .social-card-arrow {
+      transform: translateX(3px);
+      opacity: 1;
+      color: #f43f5e;
+    }
+
+    .social-brand-card:active {
+      transform: scale(0.97);
+    }
+
+    /* Direct Contact List */
     .contact-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin-top: 20px;
+      gap: 14px;
+      margin-top: 14px;
+      width: 100%;
     }
 
     .contact-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 18px;
+      padding: 12px 16px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border);
       border-radius: 14px;
       text-decoration: none;
       color: #fff;
       transition: all 0.25s ease;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+      gap: 12px;
     }
 
     .contact-item:hover {
@@ -994,45 +1134,19 @@
       transform: translateY(-2px);
     }
 
-    .contact-info-block span {
-      display: block;
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 2px;
-    }
-
-    .contact-info-block strong {
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .copy-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: none;
-      color: var(--text-muted);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .copy-btn:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    /* Contact Logo Styles */
     .contact-item-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+      min-width: 0;
+      flex: 1 1 auto;
+      overflow: hidden;
     }
+
     .contact-logo-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1041,22 +1155,12 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.25s ease;
     }
+
     .contact-item:hover .contact-logo-icon {
-      transform: scale(1.08);
+      transform: scale(1.06);
       border-color: rgba(255, 255, 255, 0.2);
     }
-    .contact-logo-linkedin {
-      background: rgba(10, 102, 194, 0.12);
-      border-color: rgba(10, 102, 194, 0.3);
-    }
-    .contact-logo-github {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    .contact-logo-instagram {
-      background: rgba(225, 48, 108, 0.12);
-      border-color: rgba(225, 48, 108, 0.3);
-    }
+
     .contact-logo-email {
       background: rgba(245, 158, 11, 0.12);
       border-color: rgba(245, 158, 11, 0.3);
@@ -1069,24 +1173,58 @@
       background: rgba(16, 185, 129, 0.12);
       border-color: rgba(16, 185, 129, 0.3);
     }
-    .contact-action-badge {
+
+    .contact-info-block {
+      min-width: 0;
+      flex: 1 1 auto;
+      overflow: hidden;
+    }
+
+    .contact-info-block span {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-info-block strong {
+      display: block;
+      font-size: clamp(0.78rem, 2.2vw, 0.9rem);
+      font-weight: 600;
+      white-space: normal;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      line-height: 1.35;
+    }
+
+    .location-status-pill {
+      color: #22c55e;
       font-size: 0.78rem;
       font-weight: 600;
-      color: var(--text-muted);
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      transition: all 0.25s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .contact-item:hover .contact-action-badge {
-      color: #fff;
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
       background: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 0 12px rgba(255, 42, 42, 0.4);
+      color: #fff;
     }
 
     /* Certificate Buttons & Modal */
@@ -1222,12 +1360,216 @@
       background: rgba(6, 6, 8, 0.92);
     }
 
+    /* ==========================================================
+       RESPONSIVE DESIGN (LAPTOPS, TABLETS & MOBILES)
+       ========================================================== */
+    
+    /* Small Laptops & Tablets Landscape (max-width: 1100px) */
+    @media (max-width: 1100px) {
+      .section {
+        padding: 120px 32px 80px;
+      }
+      .content-column {
+        max-width: 600px;
+      }
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tablets (max-width: 960px) */
     @media (max-width: 960px) {
       .nav-links { display: none; }
       header { top: 14px; width: calc(100% - 28px); }
-      .section { padding: 110px 20px 70px; }
-      .hero-title { font-size: 3rem; }
+      .section { padding: 110px 24px 70px; }
+      .content-column { max-width: 100%; }
+      .hero-title { font-size: clamp(2.4rem, 6.5vw, 3.6rem); }
       .custom-cursor, .custom-cursor-follower { display: none !important; }
+      .viewport-overlay {
+        background: rgba(6, 6, 8, 0.88);
+      }
+      .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      }
+      .kpi-ribbon {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile Devices (max-width: 600px) */
+    @media (max-width: 600px) {
+      header {
+        top: 10px;
+        width: calc(100% - 16px);
+      }
+      nav {
+        padding: 8px 14px;
+      }
+      .brand {
+        font-size: 0.98rem;
+        gap: 6px;
+      }
+      .nav-cta {
+        padding: 6px 12px;
+        font-size: 0.74rem;
+      }
+      .section {
+        padding: 85px 14px 45px;
+      }
+      .hero-pretitle {
+        font-size: 0.75rem;
+      }
+      .hero-title {
+        font-size: clamp(2rem, 8.5vw, 2.7rem);
+        line-height: 1.1;
+      }
+      .hero-subtitle {
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+      .hero-badges {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .status-pill {
+        font-size: 0.74rem;
+        padding: 6px 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+      }
+      .hero-actions a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 12px 18px;
+        font-size: 0.85rem;
+      }
+      .about-card, .contact-card, .timeline-card, .project-card {
+        padding: 20px 14px;
+        border-radius: 18px;
+      }
+      .about-text {
+        font-size: 0.94rem;
+        line-height: 1.7;
+      }
+      .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding-top: 18px;
+      }
+      .stat-item h3 {
+        font-size: 1.4rem;
+      }
+      .stat-item p {
+        font-size: 0.72rem;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-ribbon {
+        grid-template-columns: 1fr;
+      }
+      .timeline {
+        padding-left: 18px;
+      }
+      .timeline::before {
+        left: 4px;
+      }
+      .timeline-node {
+        left: -18px;
+        width: 12px;
+        height: 12px;
+        top: 8px;
+      }
+      .timeline-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .timeline-title {
+        font-size: 1rem;
+      }
+      .cert-btn {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+        font-size: 0.78rem;
+        padding: 8px 14px;
+      }
+      .social-cards-grid {
+        gap: 8px;
+      }
+      .social-brand-card {
+        padding: 12px 6px;
+      }
+      .social-brand-card .social-card-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 6px;
+      }
+      .social-brand-card .social-card-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      .social-brand-card .social-card-label {
+        font-size: 0.75rem;
+      }
+      .contact-item {
+        padding: 10px 12px;
+        gap: 10px;
+      }
+      .contact-logo-icon {
+        width: 36px;
+        height: 36px;
+      }
+      .contact-logo-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .contact-info-block strong {
+        font-size: 0.78rem;
+      }
+      .copy-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+      .cert-modal-content {
+        padding: 20px 14px;
+        border-radius: 16px;
+      }
+      footer {
+        padding: 28px 16px;
+        font-size: 0.78rem;
+      }
+    }
+
+    /* Small Mobile (max-width: 380px) */
+    @media (max-width: 380px) {
+      .social-cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .social-brand-card {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 10px 14px;
+      }
+      .social-brand-card .social-card-icon {
+        margin-bottom: 0;
+      }
+      .social-brand-card .social-card-arrow {
+        margin-left: auto;
+      }
     }
   </style>
 </head>
@@ -1586,49 +1928,44 @@
               Ready to contribute to data-driven teams as a <strong style="color:#fff;">Data Analyst, BI Analyst, or MIS Analyst</strong>.
             </p>
 
-            <div class="contact-list">
+            <!-- Social Profiles Grid (LinkedIn, GitHub, Instagram) - Clean Brand Logos, Rich Hover & Direct Click -->
+            <div class="social-cards-grid">
               <!-- LinkedIn -->
-              <a href="https://www.linkedin.com/in/deep-patel-7173b5299/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
-                <div class="contact-item-left">
-                  <div class="contact-logo-icon contact-logo-linkedin">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#0a66c2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
-                  </div>
-                  <div class="contact-info-block">
-                    <span>Professional Network</span>
-                    <strong>LinkedIn</strong>
-                  </div>
+              <a href="https://www.linkedin.com/in/deep-patel-7173b5299/" target="_blank" rel="noopener noreferrer" class="social-brand-card card-linkedin interactive" aria-label="LinkedIn Profile" onclick="window.open(this.href, '_blank', 'noopener,noreferrer'); return false;">
+                <div class="social-card-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="#0a66c2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.2a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
                 </div>
-                <span class="contact-action-badge">Connect &rarr;</span>
+                <div class="social-card-label">
+                  <span>LinkedIn</span>
+                  <span class="social-card-arrow">&rarr;</span>
+                </div>
               </a>
 
               <!-- GitHub -->
-              <a href="https://github.com/deeppatel-1305" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
-                <div class="contact-item-left">
-                  <div class="contact-logo-icon contact-logo-github">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
-                  </div>
-                  <div class="contact-info-block">
-                    <span>Code &amp; Repositories</span>
-                    <strong>GitHub</strong>
-                  </div>
+              <a href="https://github.com/deeppatel-1305" target="_blank" rel="noopener noreferrer" class="social-brand-card card-github interactive" aria-label="GitHub Profile" onclick="window.open(this.href, '_blank', 'noopener,noreferrer'); return false;">
+                <div class="social-card-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="#ffffff"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
                 </div>
-                <span class="contact-action-badge">Explore &rarr;</span>
+                <div class="social-card-label">
+                  <span>GitHub</span>
+                  <span class="social-card-arrow">&rarr;</span>
+                </div>
               </a>
 
               <!-- Instagram -->
-              <a href="https://www.instagram.com/mr_deep_1_3/" target="_blank" rel="noopener noreferrer" class="contact-item interactive">
-                <div class="contact-item-left">
-                  <div class="contact-logo-icon contact-logo-instagram">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="url(#igGrad2)"><defs><linearGradient id="igGrad2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-                  </div>
-                  <div class="contact-info-block">
-                    <span>Social Feed</span>
-                    <strong>Instagram</strong>
-                  </div>
+              <a href="https://www.instagram.com/mr_deep_1_3/" target="_blank" rel="noopener noreferrer" class="social-brand-card card-instagram interactive" aria-label="Instagram Profile" onclick="window.open(this.href, '_blank', 'noopener,noreferrer'); return false;">
+                <div class="social-card-icon">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="url(#igGradCard)"><defs><linearGradient id="igGradCard" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
                 </div>
-                <span class="contact-action-badge">Follow &rarr;</span>
+                <div class="social-card-label">
+                  <span>Instagram</span>
+                  <span class="social-card-arrow">&rarr;</span>
+                </div>
               </a>
+            </div>
 
+            <!-- Direct Contact List (Email, Phone, Location) -->
+            <div class="contact-list">
               <!-- Email -->
               <div class="contact-item">
                 <div class="contact-item-left">
@@ -1668,7 +2005,7 @@
                     <strong>Pune, Maharashtra, India</strong>
                   </div>
                 </div>
-                <span style="color: #22c55e; font-size: 0.8rem; font-weight: 600;">● Available</span>
+                <span class="location-status-pill">● Available</span>
               </div>
             </div>
           </div>
@@ -1899,9 +2236,11 @@
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
 
-      // Fit height so the full head, shoulders, and suit are visible
-      const fitScale = (ch * 0.96) / ih;
-      const scale = fitScale * scaleMultiplier;
+      // Fit height on desktop, and clamp to screen bounds on mobile/tablet so head, eyes, and shoulders never crop
+      const heightScale = (ch * 0.96) / ih;
+      const widthScale = (cw * 1.05) / iw;
+      const baseScale = window.innerWidth > 960 ? heightScale : Math.min(heightScale, widthScale);
+      const scale = baseScale * scaleMultiplier;
       const dw = iw * scale;
       const dh = ih * scale;
 
