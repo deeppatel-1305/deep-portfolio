@@ -408,6 +408,71 @@
       transform: translateY(-1px);
     }
 
+    .nav-resume-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 999px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-resume-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-resume {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 999px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-resume:hover {
+      background: #ffffff;
+      color: #060608;
+      border-color: #ffffff;
+      box-shadow: 0 0 24px rgba(255, 255, 255, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .contact-resume-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      margin-top: 16px;
+      background: linear-gradient(135deg, rgba(255, 42, 42, 0.12) 0%, rgba(20, 20, 26, 0.7) 100%);
+      border: 1px solid rgba(255, 42, 42, 0.35);
+      border-radius: 16px;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .contact-resume-banner:hover {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(255, 42, 42, 0.24) 0%, rgba(26, 26, 34, 0.85) 100%);
+      box-shadow: 0 10px 25px rgba(255, 42, 42, 0.25);
+      transform: translateY(-2px);
+    }
+
     /* ==========================================================
        CONTENT SECTIONS (LEFT ALIGNED TO BALANCE SUBJECT ON RIGHT)
        ========================================================== */
@@ -1636,7 +1701,13 @@
         <li><a href="#career" class="interactive">Education &amp; Experience</a></li>
         <li><a href="#contact" class="interactive">Contact</a></li>
       </ul>
-      <a href="#contact" class="nav-cta interactive">Get In Touch &rarr;</a>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <a href="Deep_Resume.pdf" download="Deep_Patel_Resume.pdf" target="_blank" class="nav-resume-btn interactive" title="Download Deep Patel Resume">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Resume</span>
+        </a>
+        <a href="#contact" class="nav-cta interactive">Get In Touch &rarr;</a>
+      </div>
     </nav>
   </header>
 
@@ -1665,6 +1736,10 @@
         <div class="hero-actions">
           <a href="#project" class="btn-primary interactive">Explore NextMove Project &rarr;</a>
           <a href="#skills" class="btn-secondary interactive">View Technical Arsenal</a>
+          <a href="Deep_Resume.pdf" download="Deep_Patel_Resume.pdf" target="_blank" class="btn-resume interactive" title="Download Deep Patel Resume PDF">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Resume</span>
+          </a>
         </div>
       </div>
     </section>
@@ -2008,6 +2083,23 @@
                 <span class="location-status-pill">● Available</span>
               </div>
             </div>
+
+            <!-- Resume Download Action Banner -->
+            <a href="Deep_Resume.pdf" download="Deep_Patel_Resume.pdf" target="_blank" class="contact-resume-banner interactive" title="Download Deep Patel Resume PDF">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 42, 42, 0.2); display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="18"/><line x1="15" y1="15" x2="12" y2="18"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.92rem; font-weight: 700; color: #fff;">Download Official Resume</div>
+                  <div style="font-size: 0.76rem; color: var(--text-muted);">PDF Format • Deep Patel Profile</div>
+                </div>
+              </div>
+              <div style="background: var(--accent); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                <span>Get PDF</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+            </a>
           </div>
 
           <!-- Message Form -->
